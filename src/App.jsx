@@ -9,7 +9,7 @@ function App() {
     return (
         <div className="App">
             <Header />
-            <main className="flex justify-center">
+            <main className="mx-10">
                 <Routes>
                     <Route index element={<Home />} />
                     <Route path="ajouter-tache" element={<TaskForm />} />

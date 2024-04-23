@@ -1,9 +1,12 @@
+/* eslint-disable */
 import { useContext } from "react";
 import { TaskContext } from "../utils/context/TaskContext";
+import "../assets/styles/table.css"
+import trash from "../assets/icons/trash-solid.svg"
 
-const Table = () => {
-    const { tasks, handleTaskStatusChange } = useContext(TaskContext);
-    console.log(tasks);
+const Table = ({ tasks }) => {
+    const { handleTaskStatusChange, removeTask } = useContext(TaskContext);
+
     return (
         <>
             <div className="flex flex-col">
@@ -12,23 +15,28 @@ const Table = () => {
                         <div className="overflow-hidden">
                             <table className="min-w-full text-left text-sm font-light">
                                 <thead className="border-b font-medium dark:border-neutral-500">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-4">
-                                            Nom
-                                        </th>
-                                        <th scope="col" className="px-6 py-4">
-                                            Date
-                                        </th>
-                                        <th scope="col" className="px-6 py-4">
-                                            Priorité
-                                        </th>
-                                        <th scope="col" className="px-6 py-4">
-                                            Statut
-                                        </th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col" className="px-6 py-4">
+                                        Nom
+                                    </th>
+                                    <th scope="col" className="px-6 py-4">
+                                        Date
+                                    </th>
+                                    <th scope="col" className="px-6 py-4">
+                                        Priorité
+                                    </th>
+                                    <th scope="col" className="px-6 py-4">
+                                        Statut
+                                    </th>
+                                    <th scope="col" className="px-6 py-4">
+                                        Action
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    {tasks.length > 0 &&
+                                {/* eslint-disable-next-line react/prop-types */}
+                                {tasks.length > 0 &&
+                                    // eslint-disable-next-line react/prop-types
                                         tasks.map((task, index) => (
                                             <tr
                                                 key={index}
@@ -47,9 +55,9 @@ const Table = () => {
                                                             "Moyenne"
                                                                 ? "bg-yellow-500 text-black"
                                                                 : task.taskPriority ===
-                                                                  "Haute"
-                                                                ? "bg-red-500 text-white"
-                                                                : "bg-green-500 text-white"
+                                                                "Haute"
+                                                                    ? "bg-red-500 text-white"
+                                                                    : "bg-green-500 text-white"
                                                         }`}
                                                     >
                                                         {task.taskPriority}
@@ -69,6 +77,9 @@ const Table = () => {
                                                             )
                                                         }
                                                     />
+                                                </td>
+                                                <td className="whitespace-nowrap px-6 py-4">
+                                                    <img onClick={() => removeTask(task.taskName)} className="trash-icon" src={trash} alt="Icone poubelle"/>
                                                 </td>
                                             </tr>
                                         ))}
